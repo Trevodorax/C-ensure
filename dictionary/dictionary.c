@@ -72,4 +72,13 @@ void censorWord(
     }
 }
 
-
+void printCensoredMessage(
+    const char * message,
+    char ** dictionary,
+    size_t dictionarySize
+)
+{
+    char * censoredMessage = censorMessage(message, dictionary, dictionarySize);
+    printf("\n%s", censoredMessage);
+    free(censoredMessage);
+}

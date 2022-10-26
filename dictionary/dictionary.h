@@ -25,3 +25,9 @@ void censorWord(
     char * censoredMessage,
     const char * censoredWord
 );
+
+void printCensoredMessage(
+    const char * message,
+    char ** dictionary,
+    size_t dictionarySize
+);
