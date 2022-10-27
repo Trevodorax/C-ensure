@@ -14,6 +14,7 @@ int main(int argc, char ** argv)
 
     while(1)
     {
+        free(userInput);
         printMenu(appState);
         userInput = getInputString();
 
@@ -33,6 +34,7 @@ int main(int argc, char ** argv)
 
         if(strcmp(userInput, "stop") == 0)
         {
+            free(userInput);
             break;
         }
 
@@ -50,8 +52,6 @@ int main(int argc, char ** argv)
         }
 
     }
-    
-    free(userInput);
 
     printf("\n");
 
