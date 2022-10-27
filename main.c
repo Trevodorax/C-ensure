@@ -12,6 +12,9 @@ int main(int argc, char ** argv)
     char * userInput;
     char appState = 's';
 
+    dictionarySize = getDictionary(&dictionary);
+    printDictionary(dictionary, dictionarySize);
+
     while(1)
     {
         printMenu(appState);
@@ -58,6 +61,8 @@ int main(int argc, char ** argv)
     }
 
     printf("\n");
+
+    saveDictionary(dictionary, dictionarySize);
 
     for(i = 0; i < dictionarySize; i++)
     {

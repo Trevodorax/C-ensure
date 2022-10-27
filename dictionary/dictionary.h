@@ -31,3 +31,12 @@ void printCensoredMessage(
     char ** dictionary,
     size_t dictionarySize
 );
+
+void saveDictionary(
+    char ** dictionary,
+    size_t dictionarySize
+);
+
+size_t getDictionary(
+    char *** dictionary
+);

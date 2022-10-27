@@ -82,3 +82,71 @@ void printCensoredMessage(
     printf("\n%s", censoredMessage);
     free(censoredMessage);
 }
+
+void saveDictionary(
+    char ** dictionary,
+    size_t dictionarySize
+)
+{
+    FILE* storageFile;
+
+    storageFile = fopen("./dictionary/storage", "w");
+    
+    for(int i = 0; i < dictionarySize; i++)
+    {
+        fputs(*(dictionary + i), storageFile);
+        printf("\nWord %d : %s", i + 1, *(dictionary + i));
+        fputc('\n', storageFile);
+    }
+
+    fclose(storageFile);
+
+    return;
+}
+
+
+size_t getDictionary(
+    char *** dictionary
+)
+{
+    FILE* storageFile;
+    storageFile = fopen("./dictionary/storage", "r");
+
+    char nextChar;
+    size_t dictionarySize = 0;
+
+    char * currentWord;
+    size_t currentWordSize;
+
+    while(1)
+    {
+        currentWord = malloc(0);
+        currentWordSize = 0;
+        while(1)
+        {
+            nextChar = fgetc(storageFile);
+
+            if(feof(storageFile))
+            {
+                return dictionarySize;
+            }
+
+            if(nextChar == '\n')
+            {
+                currentWord = realloc(currentWord, sizeof(char) * (currentWordSize + 1));
+                *(currentWord + currentWordSize) = '\0';
+                addToDictionary(dictionary, &dictionarySize, currentWord);
+                break;
+            }
+
+            currentWord = realloc(currentWord, sizeof(char) * (currentWordSize + 1));
+            *(currentWord + currentWordSize) = nextChar;
+            currentWordSize++;
+        }
+        
+        free(currentWord);
+    }
+    
+
+    return dictionarySize;
+}
