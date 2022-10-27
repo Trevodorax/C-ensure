@@ -95,7 +95,6 @@ void saveDictionary(
     for(int i = 0; i < dictionarySize; i++)
     {
         fputs(*(dictionary + i), storageFile);
-        printf("\nWord %d : %s", i + 1, *(dictionary + i));
         fputc('\n', storageFile);
     }
 

@@ -3,6 +3,7 @@
 
 int main(int argc, char ** argv)
 {
+    // IF EMPTY STRING, CRASH !!!
     int i;
     char * censoredMessage;
     
@@ -13,7 +14,6 @@ int main(int argc, char ** argv)
     char appState = 's';
 
     dictionarySize = getDictionary(&dictionary);
-    printDictionary(dictionary, dictionarySize);
 
     while(1)
     {
