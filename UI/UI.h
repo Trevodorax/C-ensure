@@ -8,4 +8,6 @@ void printMenu(
     char appState
 );
 
-char * getInputString();
+char * getInputString(
+    int getWordOnly
+);

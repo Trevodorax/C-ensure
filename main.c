@@ -15,10 +15,11 @@ int main(int argc, char ** argv)
     while(1)
     {
         printMenu(appState);
-        userInput = getInputString();
+
+        // if adding words, it stops at space, else it gets all input
+        userInput = getInputString(appState == 'm' ? 0 : 1);
 
         // looking for keywords
-        
         if(strcmp(userInput, "add") == 0)
         {
             appState = 'a';

@@ -31,7 +31,9 @@ void printMenu(
 }
 
 
-char * getInputString()
+char * getInputString(
+    int getWordOnly
+)
 {
     char * inputString = malloc(0);
     size_t inputStringSize = 0;
@@ -41,7 +43,7 @@ char * getInputString()
     {
         inputString = realloc(inputString, sizeof(char) * (inputStringSize + 1));
         nextChar = fgetc(stdin);
-        if(nextChar == '\n') 
+        if(nextChar == '\n' || (getWordOnly && nextChar == ' ')) 
         { 
             *(inputString + inputStringSize) = '\0';
             break; 
