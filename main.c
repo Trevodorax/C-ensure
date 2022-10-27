@@ -14,7 +14,6 @@ int main(int argc, char ** argv)
 
     while(1)
     {
-        free(userInput);
         printMenu(appState);
         userInput = getInputString();
 
@@ -23,12 +22,14 @@ int main(int argc, char ** argv)
         if(strcmp(userInput, "add") == 0)
         {
             appState = 'a';
+            free(userInput);
             continue;
         }
 
         if(strcmp(userInput, "message") == 0)
         {
             appState = 'm';
+            free(userInput);
             continue;
         }
 
@@ -51,6 +52,8 @@ int main(int argc, char ** argv)
                 break;
         }
 
+        free(userInput);
+
     }
 
     printf("\n");
@@ -62,10 +65,4 @@ int main(int argc, char ** argv)
     free(dictionary);
 
     return 0;
-
-    // int status;
-    // status = initApp(argc, argv);
-
-    // return status;
-
 }
