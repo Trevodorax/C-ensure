@@ -1,8 +1,0 @@
-# Stuff to do in this project
-
-## Bugs
-
-## Code quality
-* Lacking error and null handling
-
-## Features

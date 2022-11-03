@@ -1,6 +1,6 @@
 /*
 author  : Paul GAUDEAUX
-purpose : Chatting app with censored messages
+purpose : "Chatting" app with censored messages
 */
 
 #include "./main.h"
