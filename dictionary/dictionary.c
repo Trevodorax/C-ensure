@@ -120,7 +120,8 @@ void getDictionary(
 
             if(feof(storageFile))
             {
-                dictionary->size = dictionarySize;
+                free(currentWord);
+                fclose(storageFile);
                 return;
             }
 
@@ -136,11 +137,10 @@ void getDictionary(
             *(currentWord + currentWordSize) = nextChar;
             currentWordSize++;
         }
-        
+
         free(currentWord);
     }
-    
 
-    dictionary->size = dictionarySize;
+    fclose(storageFile);
     return;
 }
