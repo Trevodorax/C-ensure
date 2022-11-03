@@ -22,6 +22,11 @@ int main(int argc, char ** argv)
         // if adding words, it stops at space, else it gets all input
         userInput = getInputString(appState == 'm' ? 0 : 1);
 
+        if(strlen(userInput) == 0)
+        {
+            continue;
+        }
+
         // looking for keywords
         if(strcmp(userInput, "add") == 0)
         {
