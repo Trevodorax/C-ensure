@@ -9,12 +9,17 @@ void printMenu(
     if(appState == 'a')
     {
         printf("\nEnter the phrase you want to censor.");
-    };
+    }
 
     if(appState == 'm')
     {
         printf("\nEnter the message you want to send.");
-    };
+    }
+
+    if(appState == 'r')
+    {
+        printf("\nEnter the word you want to remove from dictionary.");
+    }
 
     if(appState != 'a')
     {
@@ -24,6 +29,11 @@ void printMenu(
     if(appState != 'm')
     {
         printf("\nEnter \"message\" to write messages.");
+    }
+
+    if(appState != 'r')
+    {
+        printf("\nEnter \"remove\" to remove words from dictionary.");
     }
 
     printf("\nEnter \"stop\" to close the program.\n\n");

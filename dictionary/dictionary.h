@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef _UTILS_H_
+#include "../utils/utils.h"
+#endif
+
 typedef struct {
     char ** words;
     size_t size;
@@ -39,4 +43,9 @@ void saveDictionary(
 
 void getDictionary(
     dictionary_t * dictionary
+);
+
+void removeFromDictionary(
+    dictionary_t * dictionary,
+    const char * word
 );

@@ -7,6 +7,11 @@ void addToDictionary(
     const char * addedWord
 )
 {
+    if(isInStringArray(dictionary->words, dictionary->size, addedWord) != -1)
+    {
+        printf("\nThis word is already in dictionary.");
+        return;
+    }
     // adding a memory slot for new word
     dictionary->words = realloc(dictionary->words, sizeof(char*) * (dictionary->size + 1));
 
@@ -143,4 +148,12 @@ void getDictionary(
 
     fclose(storageFile);
     return;
+}
+
+void removeFromDictionary(
+    dictionary_t * dictionary,
+    const char * word
+)
+{
+    removeFromStringArray(&(dictionary->words), &(dictionary->size), word);
 }

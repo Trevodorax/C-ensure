@@ -43,6 +43,13 @@ int main(int argc, char ** argv)
             continue;
         }
 
+        if(strcmp(userInput, "remove") == 0)
+        {
+            appState = 'r';
+            free(userInput);
+            continue;
+        }
+
         if(strcmp(userInput, "stop") == 0)
         {
             free(userInput);
@@ -53,12 +60,16 @@ int main(int argc, char ** argv)
         switch(appState)
         {
             case 'a':
+                printf("\n");
                 addToDictionary(&dictionary, userInput);
-                printf("\nAdded the phrase \"%s\" to the dictionary.\n", userInput);
                 break;
             case 'm':
                 printf("\n");
                 printCensoredMessage(dictionary, userInput);
+                break;
+            case 'r':
+                printf("\n");
+                removeFromDictionary(&dictionary, userInput);
                 break;
         }
 
