@@ -7,11 +7,13 @@ void addToDictionary(
     const char * addedWord
 )
 {
+    // prevent duplicate in dictionary
     if(isInStringArray(dictionary->words, dictionary->size, addedWord) != -1)
     {
-        printf("\nThis word is already in dictionary.");
+        printf("\nThis word is already in dictionary.\n");
         return;
     }
+
     // adding a memory slot for new word
     dictionary->words = realloc(dictionary->words, sizeof(char*) * (dictionary->size + 1));
 
@@ -42,9 +44,11 @@ char * censorMessage(
     const char * message
 )
 {
+    // message that will be censored
     char * censoredMessage = malloc(strlen(message) * sizeof(char) + 1);
     strcpy(censoredMessage, message);
 
+    // add stars instead of word for each censored word
     for(int i = 0; i < dictionary.size; i++)
     {
         censorWord(censoredMessage, *(dictionary.words + i));
@@ -59,6 +63,8 @@ void censorWord(
 )
 {
     char * censoredWordStart;
+
+    // for each occurence of the censoredWord, replace it with stars
     while(1) 
     {
         censoredWordStart = strstr(censoredMessage, censoredWord);
@@ -78,10 +84,11 @@ void printCensoredMessage(
 )
 {
     char * censoredMessage = censorMessage(dictionary, message);
-    printf("\n%s", censoredMessage);
+    printf("%s", censoredMessage);
     free(censoredMessage);
 }
 
+// stores the content of the dictionary in a file for data persistance
 void saveDictionary(
     dictionary_t dictionary
 )
@@ -101,7 +108,7 @@ void saveDictionary(
     return;
 }
 
-
+// get the dictionary stored by potential previous executions
 void getDictionary(
     dictionary_t * dictionary
 )
@@ -117,12 +124,15 @@ void getDictionary(
 
     while(1)
     {
+        // temporary storage as words are fetched char by char in the file
         currentWord = malloc(0);
         currentWordSize = 0;
+
         while(1)
         {
             nextChar = fgetc(storageFile);
 
+            // finishes the program when it reaches the end of the file
             if(feof(storageFile))
             {
                 free(currentWord);
@@ -130,6 +140,7 @@ void getDictionary(
                 return;
             }
 
+            // at the end of each word, store it in the dictionary
             if(nextChar == '\n')
             {
                 currentWord = realloc(currentWord, sizeof(char) * (currentWordSize + 1));
@@ -138,6 +149,7 @@ void getDictionary(
                 break;
             }
 
+            // if a normal character was found, add it to the current word
             currentWord = realloc(currentWord, sizeof(char) * (currentWordSize + 1));
             *(currentWord + currentWordSize) = nextChar;
             currentWordSize++;

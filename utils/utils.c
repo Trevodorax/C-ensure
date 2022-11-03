@@ -12,6 +12,7 @@ int isInStringArray(
 {
     for(int i = 0; i < arraySize; i++)
     {
+        // if word at this index matches search string, return the index
         if(strcmp(*(array + i), word) == 0)
         {
             return i;
@@ -27,23 +28,24 @@ void removeFromStringArray(
     const char * word
 )
 {
+    // get the index of the removed string
     int removedIndex = isInStringArray(*array, *arraySize, word);
 
+    // if the removed string isn't in array, do nothing
     if(removedIndex == -1)
     {
         return;
     }
-    printf("\nremoved index : %d", removedIndex);
-    printf("\nremoving : %s", *(*(array) + removedIndex));
 
+    // moving every element after deleted one index lower to delete it
     for(int i = removedIndex; i < (*arraySize) - 1; i++)
     {
         *(*(array) + i) = realloc(*(*(array) + i), sizeof(char) * strlen(*(*(array) + i + 1)) + 1);
         strcpy(*(*(array) + i), *(*(array) + i + 1));
     }
 
+    // last index is not required anymore
     free(*(*(array) + (*arraySize) - 1));
-
     (*arraySize)--;
 
     return;
