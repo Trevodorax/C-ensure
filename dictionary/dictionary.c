@@ -3,51 +3,46 @@
 #endif
 
 void addToDictionary(
-    char *** dictionary,
-    size_t * dictionarySize,
+    dictionary_t * dictionary,
     const char * addedWord
 )
 {
     // adding a memory slot for new word
-    *dictionary = realloc(*dictionary, sizeof(char*) * (*dictionarySize + 1));
+    dictionary->words = realloc(dictionary->words, sizeof(char*) * (dictionary->size + 1));
 
     // creating new word at this slot
-    *((*dictionary) + (*dictionarySize)) = malloc(sizeof(char) * strlen(addedWord) + 1);
-    strcpy(*((*dictionary) + (*dictionarySize)), addedWord);
+    *(dictionary->words + dictionary->size) = malloc(sizeof(char) * strlen(addedWord) + 1);
+    strcpy(*(dictionary->words + dictionary->size), addedWord);
 
     // increasing external dictionarySize
-    (*dictionarySize)++;
+    dictionary->size++;
 
     return;
 }
 
 void printDictionary(
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary
 )
 {
-    for(int i = 0; i < dictionarySize; i++)
+    for(int i = 0; i < dictionary.size; i++)
     {
-        printf("\n%s", *(dictionary + i));
+        printf("\n%s", *(dictionary.words + i));
     }
 
     return;
 }
 
 char * censorMessage(
-    const char * message, 
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary,
+    const char * message
 )
 {
     char * censoredMessage = malloc(strlen(message) * sizeof(char) + 1);
     strcpy(censoredMessage, message);
 
-
-
-    for(int i = 0; i < dictionarySize; i++)
+    for(int i = 0; i < dictionary.size; i++)
     {
-        censorWord(censoredMessage, *(dictionary + i));
+        censorWord(censoredMessage, *(dictionary.words + i));
     }
 
     return censoredMessage;
@@ -73,28 +68,26 @@ void censorWord(
 }
 
 void printCensoredMessage(
-    const char * message,
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary,
+    const char * message
 )
 {
-    char * censoredMessage = censorMessage(message, dictionary, dictionarySize);
+    char * censoredMessage = censorMessage(dictionary, message);
     printf("\n%s", censoredMessage);
     free(censoredMessage);
 }
 
 void saveDictionary(
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary
 )
 {
     FILE* storageFile;
 
     storageFile = fopen("./dictionary/storage", "w");
     
-    for(int i = 0; i < dictionarySize; i++)
+    for(int i = 0; i < dictionary.size; i++)
     {
-        fputs(*(dictionary + i), storageFile);
+        fputs(*(dictionary.words + i), storageFile);
         fputc('\n', storageFile);
     }
 
@@ -104,8 +97,8 @@ void saveDictionary(
 }
 
 
-size_t getDictionary(
-    char *** dictionary
+void getDictionary(
+    dictionary_t * dictionary
 )
 {
     FILE* storageFile;
@@ -127,14 +120,15 @@ size_t getDictionary(
 
             if(feof(storageFile))
             {
-                return dictionarySize;
+                dictionary->size = dictionarySize;
+                return;
             }
 
             if(nextChar == '\n')
             {
                 currentWord = realloc(currentWord, sizeof(char) * (currentWordSize + 1));
                 *(currentWord + currentWordSize) = '\0';
-                addToDictionary(dictionary, &dictionarySize, currentWord);
+                addToDictionary(dictionary, currentWord);
                 break;
             }
 
@@ -147,5 +141,6 @@ size_t getDictionary(
     }
     
 
-    return dictionarySize;
+    dictionary->size = dictionarySize;
+    return;
 }

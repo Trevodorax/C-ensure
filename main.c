@@ -3,17 +3,18 @@
 
 int main(int argc, char ** argv)
 {
-    // IF EMPTY STRING, CRASH !!!
     int i;
     char * censoredMessage;
+
+    dictionary_t dictionary;
     
-    char ** dictionary = malloc(0);
-    size_t dictionarySize = 0;
+    dictionary.words = malloc(0);
+    dictionary.size = 0;
 
     char * userInput;
     char appState = 's';
 
-    dictionarySize = getDictionary(&dictionary);
+    getDictionary(&dictionary);
 
     while(1)
     {
@@ -52,12 +53,12 @@ int main(int argc, char ** argv)
         switch(appState)
         {
             case 'a':
-                addToDictionary(&dictionary, &dictionarySize, userInput);
+                addToDictionary(&dictionary, userInput);
                 printf("\nAdded the phrase \"%s\" to the dictionary.\n", userInput);
                 break;
             case 'm':
                 printf("\n");
-                printCensoredMessage(userInput, dictionary, dictionarySize);
+                printCensoredMessage(dictionary, userInput);
                 break;
         }
 
@@ -67,13 +68,13 @@ int main(int argc, char ** argv)
 
     printf("\n");
 
-    saveDictionary(dictionary, dictionarySize);
+    saveDictionary(dictionary);
 
-    for(i = 0; i < dictionarySize; i++)
+    for(i = 0; i < dictionary.size; i++)
     {
-        free(*(dictionary + i));
+        free(*(dictionary.words + i));
     }
-    free(dictionary);
+    free(dictionary.words);
 
     return 0;
 }

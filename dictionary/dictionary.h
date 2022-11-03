@@ -4,21 +4,23 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct {
+    char ** words;
+    size_t size;
+} dictionary_t;
+
 void addToDictionary(
-    char *** dictionary,
-    size_t * dictionarySize,
+    dictionary_t * dictionary,
     const char * addedWord
 );
 
 void printDictionary(
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary
 );
 
 char * censorMessage(
-    const char * message, 
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary,
+    const char * message
 );
 
 void censorWord(
@@ -27,16 +29,14 @@ void censorWord(
 );
 
 void printCensoredMessage(
-    const char * message,
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary,
+    const char * message
 );
 
 void saveDictionary(
-    char ** dictionary,
-    size_t dictionarySize
+    dictionary_t dictionary
 );
 
-size_t getDictionary(
-    char *** dictionary
+void getDictionary(
+    dictionary_t * dictionary
 );
