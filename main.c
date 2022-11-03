@@ -8,9 +8,19 @@ purpose : Chatting app with censored messages
 
 int main(int argc, char ** argv)
 {
+    system("clear");
     // where all the censored words will be stored
     dictionary_t dictionary;
     dictionary.words = malloc(0);
+    /*
+    if the program cannot get memory, stop it.
+    for simplicity, we will consider that if this allocation works, all the allocations will work.
+    */
+    if(!dictionary.words)
+    {
+        fprintf(stderr, "Program cannot allocate memory.");
+        return EXIT_FAILURE;
+    }
     dictionary.size = 0;
 
     // temporary storage for what the user types
@@ -96,5 +106,5 @@ int main(int argc, char ** argv)
     }
     free(dictionary.words);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
