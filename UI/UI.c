@@ -6,6 +6,8 @@ void printMenu(
     char appState
 )
 {
+    printf("\n");
+
     // leading phrase according to appState
     if(appState == 'a')
     {
@@ -38,6 +40,7 @@ void printMenu(
         printf("\nEnter \"remove\" to remove words from dictionary.");
     }
 
+    printf("\nEnter \"list\" to see all the censored words.");
     printf("\nEnter \"stop\" to close the program.\n\n");
 
 }

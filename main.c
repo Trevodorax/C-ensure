@@ -69,6 +69,13 @@ int main(int argc, char ** argv)
             continue;
         }
 
+        if(strcmp(userInput, "list") == 0)
+        {
+            printDictionary(dictionary);
+            free(userInput);
+            continue;
+        }
+
         if(strcmp(userInput, "stop") == 0)
         {
             free(userInput);
